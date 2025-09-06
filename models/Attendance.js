@@ -2,10 +2,15 @@ const mongoose = require("mongoose");
 
 const attendanceSchema = new mongoose.Schema(
   {
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    date: { type: Date, required: true, default: Date.now },
     shiftStart: { type: Date },
     shiftEnd: { type: Date },
-    duration: { type: Number }, // in minutes
+    status: {
+      type: String,
+      enum: ["present", "absent", "half-day"],
+      default: "present",
+    },
   },
   { timestamps: true }
 );
